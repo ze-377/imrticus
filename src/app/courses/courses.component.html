@@ -1,0 +1,252 @@
+<nav class="nav">
+    <a class="nav-link active" aria-current="page" href="#">Active</a>
+    <a class="nav-link " href="#">Link</a>
+    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+</nav>
+
+<div class="container">
+
+
+    <div class="card bg-dark text-white">
+        <img src="https://cdn.pegasus.imarticus.org/index/mainbg.png" class="card-img"
+            style=" height:500px; opacity: 0.6;">
+        <div class="card-img-overlay">
+            <h3 class="card-title">{{courseObject.name}}</h3>
+            <div>
+                <p class="card-text">{{courseObject.shortDiscriptions}}</p>
+            </div>
+            <div><label>Created by:</label><span style="color:  #ffcc80;">{{courseObject.createdBy}}</span></div>
+            <div><label>Created by:</label><span style="color:  #ffcc80;">{{courseObject.courseDuration}}</span></div>
+            <br>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h1><span style="color:  #ffcc80;">{{courseObject.price}}</span></h1>
+                </div>
+                <div class="col-sm-3">
+                    <label style="font-size: 20px;">Rating </label>
+                    <br>
+                    <div class="row">
+
+                        <div class="col"><label>{{courseObject.rating.rating}} Ratings &nbsp;|&nbsp;</label>
+                            <label>{{courseObject.rating.enrollments}} Enrolments</label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div style="display: flex; flex-wrap: wrap; gap: 2rem;margin-top: 4rem;">
+                <button type="button" class="btn btn" (click)="openModal()"
+                    style="justify-content:center;background-color:#fed6a8;color:#212a39;border:none">Enroll
+                    Now</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" [ngClass]="{'show d-block':isModalVisible,'d-none':!isModalVisible}" id="enrollform" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Fill details</h5>
+                    <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container d-flex justify-content-center">
+                        <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <label>Name</label>
+                                    </td>
+                                    <td>
+                                        <input formControlName="studentName" placeholder="Student Name">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Phone</label>
+                                    </td>
+                                    <td>
+                                        <input formControlName="phone" placeholder="Phone">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Email</label>
+                                    </td>
+                                    <td>
+                                        <input formControlName="email" placeholder="Email">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary">submit</button>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isModalVisible" class="modal-backdrop fade show"></div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- /////////////////////////////////////Details////////////////////////////////////////////////////////////////////////// -->
+    <div class="card w-75">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-5">
+                    <h5 class="card-title">Includes</h5>
+                    <ul>
+                        <li *ngFor="let a of courseObject.includes">
+                            <span>{{a}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-7">
+                    <h5 class="card-title">What will I learn</h5>
+                    <ul>
+                        <li *ngFor="let a of courseObject.learn">
+                            <span>{{a}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <nav id="headings">
+        <div class="row">
+            <div class="col-sm-3">
+                <a href="#scrollspyHeading1">Discription</a>
+            </div>
+            <div class="col-sm-3">
+                <a href="#scrollspyHeading2">Curriculum</a>
+            </div>
+            <div class="col-sm-3">
+                <a href="#scrollspyHeading3">Instructor</a>
+            </div>
+            <div class="col-sm-3">
+                <a href="#scrollspyHeading4">FAQ</a>
+            </div>
+
+        </div>
+    </nav>
+
+
+
+
+
+    <div data-bs-spy="scroll" data-bs-target="#headings" class="scrollspy">
+
+
+        <div class="card" id="scrollspyHeading1">
+            <div class="card-header">
+                <h4>Discription</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{courseObject.discription.basic}}</p>
+                <br>
+                <p class="card-text">The course of {{courseObject.name}} is a {{courseObject.price}} online
+                    certification course. The important elements of the course are</p>
+                <ul>
+                    <li *ngFor="let a of courseObject.discription.element">
+                        {{a}}
+                    </li>
+                </ul>
+                <br>
+                <p class="card-text">The topics covered in the {{courseObject.name}} Course are:</p>
+                <ul>
+                    <li *ngFor="let a of courseObject.discription.topics">
+                        {{a}}
+                    </li>
+                </ul>
+                <br>
+                <p class="card-text">{{courseObject.discription.footnote}}</p>
+            </div>
+        </div>
+
+
+        <div class="card" id="scrollspyHeading2">
+            <div class="card-header">
+                <h4>Curriculum</h4>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <h5>
+                        <li *ngFor="let a of courseObject.curriculum ">
+                            {{a}}
+                        </li>
+
+                    </h5>
+                </ul>
+            </div>
+        </div>
+        <!-- ///////////////////////////////// Instructor///////////////////////// -->
+        <div class="card" id="scrollspyHeading3">
+            <div class="card-header">
+                <h4>Instructor</h4>
+            </div>
+            <div class="card-body">
+                <img src="">
+                <span>
+                    {{courseObject.aboutInstructor.name}}
+                </span>
+                <br>
+                <p class="card-text">{{courseObject.aboutInstructor.about}}</p>
+                <br>
+                <p class="card-text">{{courseObject.aboutInstructor.achievement}}</p>
+
+            </div>
+        </div>
+        <!-- ////////////////////////FAQ/////////////////////////////////////// -->
+        <div class="card" id="scrollspyHeading4">
+            <div class="card-header">
+                <h4>FAQ</h4>
+            </div>
+            <div class="card-body">
+                <h6>How will i learn?</h6>
+                <br>
+                <p class="card-text">{{courseObject.faq.howiwilllearn}}</p>
+                <h6>Will I get a certificate?</h6>
+                <br>
+                <p class="card-text">{{courseObject.faq.willigetcertificate}}</p>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
